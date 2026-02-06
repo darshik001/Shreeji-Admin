@@ -1,0 +1,197 @@
+<%-include('../Header')%>
+
+<div class="container-fluid">
+    <div class="form-container">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3 class="mb-0">
+                            <i class="bi bi-person-plus me-2"></i>Add New Administrator
+                        </h3>
+                        <p class="mb-0 mt-2 opacity-75">Create a new administrator account</p>
+                    </div>
+                    <a href="/admin/view-admin" class="back-btn">
+                        <i class="bi bi-arrow-left me-1"></i> Back to List
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <form action="/admin/add-admin" method="post" enctype="multipart/form-data">
+
+                    <!-- Name -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label required-field">First Name</label>
+                            <input type="text" name="firstname" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label required-field">Last Name</label>
+                            <input type="text" name="lastname" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <!-- Email & Phone -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label required-field">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" name="phone" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label required-field">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label required-field">Confirm Password</label>
+                            <input type="password" name="confirmpassword" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <!-- Gender & Role -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Gender</label>
+                            <select name="gender" class="form-select" required>
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label required-field">Admin Role</label>
+                            <select name="role" class="form-select" required>
+                                <option value="">Select role</option>
+                                <option value="super-admin">Super Admin</option>
+                                <option value="admin">Admin</option>
+                                <option value="editor">Editor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Simple File Upload -->
+                    <div class="mb-4">
+                        <label class="form-label">Profile Image</label>
+                        <input type="file" name="profileImage" class="form-control" required>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="text-center pt-3 border-top">
+                        <button type="submit" class="btn btn-primary px-5">
+                            <i class="bi bi-person-plus me-1"></i> Add Administrator
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+/* Layout */
+.form-container {
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+/* Card */
+.card {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px 12px 0 0;
+}
+
+/* Headings */
+.card-header h3 {
+    font-weight: 600;
+}
+
+/* Labels */
+.form-label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Required star */
+.required-field::after {
+    content: " *";
+    color: #e74c3c;
+}
+
+/* Inputs */
+.form-control,
+.form-select {
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.15rem rgba(52, 152, 219, 0.25);
+}
+
+/* File input */
+input[type="file"] {
+    padding: 8px;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    padding: 10px 32px;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+/* Back link */
+.back-btn {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-btn:hover {
+    color: #dcdcdc;
+}
+
+/* Divider */
+.border-top {
+    border-color: #e9ecef !important;
+}
+</style>
+
+<%-include('../Footer')%>
