@@ -7,6 +7,7 @@ const port = 8080
 
 app.set('view engine','ejs')
 app.use(express.urlencoded())
+app.use(express.static('public'))
 app.use('/uploads',express.static('uploads'))
 app.use('/',require('./Routes/index.routes'))
 

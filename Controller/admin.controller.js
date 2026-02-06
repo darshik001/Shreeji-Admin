@@ -62,3 +62,20 @@ exports.deleteAdmin = async(req,res)=>{
         
     }console.log(error)
 }
+
+
+exports.editAdmin = async(req,res)=>{
+    try {
+        let id = req.params.id
+        let admin = await adminModel.findById(id)
+        if(admin.profileImage !==""){
+          let imagepath = path.join(__dirname,'..',admin.profileImage)
+          await fs.unlinkSync(imagepath)
+        }
+
+         await adminModel.findByIdAndDelete(id)
+         res.redirect('/admin/view-admin')
+    } catch (error) {
+        
+    }console.log(error)
+}
