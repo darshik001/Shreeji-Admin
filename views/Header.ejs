@@ -193,12 +193,75 @@
                     </ul>
                     
                     <!-- Profile Section -->
-                    <div class="profile-section" id="profileTrigger">
+                   <!-- <a href="#" class="text-decoration-none dropdown-toggle">
+                     <div class="profile-section" id="profileTrigger">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
                              alt="Profile Picture" class="profile-img">
                         <span class="profile-name">John Doe</span>
-                        <i class="bi bi-chevron-down text-white"></i>
-                    </div>
+                        <i class="bi bi-chevron-down text-white "></i>
+                         <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="/admin/add-admin">
+                                        <i class="bi bi-person-plus me-2"></i> Add Admin
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/admin/view-admin">
+                                        <i class="bi bi-people me-2"></i> View Admin
+                                    </a>
+                                </li>
+
+                                  <li>
+                                    <a class="dropdown-item" href="/admin/view-admin">
+                                        <i class="bi bi-people me-2"></i> View Admin
+                                    </a>
+                                </li>
+
+                                  <li>
+                                    <a class="dropdown-item" href="/admin/view-admin">
+                                        <i class="bi bi-people me-2"></i> View Admin
+                                    </a>
+                                </li>
+
+                                  <li>
+                                    <a class="dropdown-item" href="/admin/view-admin">
+                                        <i class="bi bi-people me-2"></i> View Admin
+                                    </a>
+                                </li>
+                            </ul>
+                    </div></a> -->
+            
+            <div class="dropdown">
+  <a href="#"
+     class="text-decoration-none dropdown-toggle"
+     id="profileTrigger"
+     role="button"
+     data-bs-toggle="dropdown"
+     aria-expanded="false">
+
+    <div class="profile-section">
+<img src="<%=locals.user.profileImage%>"
+           alt="Profile Picture"
+           class="profile-img">
+
+     
+      <span class="profile-name"><%=locals.user.firstname%> <%=locals.user.lastname%></span>
+      <i class="bi bi-chevron-down text-white"></i>
+    </div>
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-end pe-5 ps-2 py-3">
+    <li class="dropdown-item">
+        <i class="bi bi-person me-2"></i> John Doe 
+    </li>
+    <li>
+      <a class="dropdown-item" href="/admin/view-admin">
+        <i class="bi bi-people me-2"></i>profile
+      </a>
+    </li>
+  </ul>
+</div>
+
                 </div>
             </div>
         </nav>

@@ -39,6 +39,7 @@ exports.addAdmin = async(req,res)=>{
 
 exports.viewAdmin = async(req,res)=>{
     try {
+        console.log(req.query.search)
         let admins = await adminModel.find()
         res.render('Admin/ViewAdmin',{admins})
     } catch (error) {
@@ -64,18 +65,39 @@ exports.deleteAdmin = async(req,res)=>{
 }
 
 
-exports.editAdmin = async(req,res)=>{
+exports.editAdminPage = async(req,res)=>{
     try {
         let id = req.params.id
         let admin = await adminModel.findById(id)
-        if(admin.profileImage !==""){
-          let imagepath = path.join(__dirname,'..',admin.profileImage)
-          await fs.unlinkSync(imagepath)
-        }
+        
 
-         await adminModel.findByIdAndDelete(id)
-         res.redirect('/admin/view-admin')
+         
+         res.render('Admin/EdiAtdmin',{admin})
     } catch (error) {
         
     }console.log(error)
+}
+
+
+exports.updateAdmin = async(req,res)=>{
+    let id  = req.params.id
+    try {
+        let admin = await adminModel.findById(id)
+        let profileImage = admin.profileImage
+        if(req.file){
+            if(profileImage !==""){
+                let deletepath = path.join(__dirname,'..',profileImage)
+                await fs.unlinkSync(deletepath)
+            }
+            profileImage = `/uploads/${req.file.filename}`
+        }
+        await adminModel.findByIdAndUpdate(id,{
+            ...req.body,
+            profileImage:profileImage
+        },{new:true})
+      return  res.redirect('/admin/view-admin')
+    } catch (error) {
+        console.log(error)
+        res.redirect(`/admin/edit-admin/${id}`)
+    }
 }

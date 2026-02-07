@@ -1,0 +1,208 @@
+<%-include('../Header')%>
+
+<div class="container-fluid">
+    <div class="form-container">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3 class="mb-0">
+                            <i class="bi bi-person me-2"></i>Update Administrator
+                        </h3>
+                        <p class="mb-0 mt-2 opacity-75">Update a new administrator account</p>
+                    </div>
+                    <!-- <a href="/admin/view-admin" class="back-btn">
+                        <i class="bi bi-arrow-left me-1"></i> Back to List
+                    </a> -->
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <form action="/admin/update-admin/<%=admin.id%>" method="post" enctype="multipart/form-data">
+
+                    <!-- Name -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label required-field">First Name</label>
+                            <input type="text" name="firstname" value="<%=admin.firstname%>" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label required-field">Last Name</label>
+                            <input type="text" name="lastname" value="<%=admin.lastname%>" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <!-- Email & Phone -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label required-field">Email</label>
+                            <input type="email" name="email" value="<%=admin.email%>" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" name="phone" value="<%=admin.phone%>" class="form-control">
+                        </div>
+                    </div>
+
+                   
+
+                    <!-- Gender & Role -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Gender</label>
+                            <select name="gender" class="form-select" required>
+                                <option  value="">Select gender</option>
+                                <option <%=admin.gender =="male"? 'selected':''%> value="male">Male</option>
+                                <option <%=admin.gender =="female"? 'selected':''%> value="female">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label required-field">Admin Role</label>
+                            <select name="role" class="form-select" required>
+                                <option value="">Select role</option>
+                                <option <%=admin.role =="super-admin"? 'selected':''%> value="super-admin">Super Admin</option>
+                                <option <%=admin.role =="admin"? 'selected':''%> value="admin">Admin</option>
+                                <option <%=admin.role =="editor"? 'selected':''%> value="editor">Editor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Simple File Upload -->
+                    <div class="mb-4 d-flex justify-content-between align-items-center">
+                        <label class="form-label">
+                        <input id="profileimage" type="file" name="profileImage" class="form-control d-none" required>
+                        Profile Image
+                        <div class=" mt-4">
+                            <img class="cursor-pointer" src="/asset/image/image-editing.png" alt="" height="100" width="100">
+                        </div>
+                        
+                    </label>
+                    <div>
+
+                        <img id="image" class="rounded-4 ms-auto" src="<%=admin.profileImage%>" alt="profileImage" height="300" width="300">
+                    </div>
+                    </div>
+                   
+
+                    <!-- Submit -->
+                    <div class="text-center pt-3 border-top">
+                        <button type="submit" class="btn btn-primary px-5">
+                            <i class="bi bi-person-plus me-1"></i> Update Administrator
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+body {
+    background-color: #f8f9fa;
+}
+
+/* Layout */
+.form-container {
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+/* Card */
+.card {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px 12px 0 0;
+}
+
+/* Headings */
+.card-header h3 {
+    font-weight: 600;
+}
+
+/* Labels */
+.form-label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Required star */
+.required-field::after {
+    content: " *";
+    color: #e74c3c;
+}
+
+/* Inputs */
+.form-control,
+.form-select {
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.15rem rgba(52, 152, 219, 0.25);
+}
+
+/* File input */
+input[type="file"] {
+    padding: 8px;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    padding: 10px 32px;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+/* Back link */
+.back-btn {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-btn:hover {
+    color: #dcdcdc;
+}
+
+/* Divider */
+.border-top {
+    border-color: #e9ecef !important;
+}
+</style>
+<script>
+    document.getElementById('profileimage').addEventListener('change',(e)=>{
+                          
+        const file = e.target.files[0];
+        if (!file) return;
+        const img = document.getElementById('image');
+        img.src = URL.createObjectURL(file);
+})
+</script>
+
+<%-include('../Footer')%>
