@@ -24,7 +24,7 @@
         <div class="row mb-4 justify-content-center">
             <div class="col-md-6">
                 <div class="stats-card total">
-                    <div class="stats-number">12</div>
+                    <div class="stats-number"><%=totaladmin%></div>
                     <div class="stats-label">Total Admins</div>
                 </div>
             </div>
@@ -105,12 +105,18 @@
                                                 data-bs-target="#viewModal">
                                                 <i class="bi bi-eye"></i>
                                             </button>
+                                             <%if(locals.user.role !=="editor"){%>
                                             <a href="/admin/edit-admin/<%=admin.id%>" class="btn btn-outline-secondary">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <a href="/admin/delete-admin/<%=admin.id%>" class="btn btn-outline-danger">
+                                           <% }%>
+
+                                            <%if(locals.user.role !=="admin" && locals.user.role !=="editor"){%>
+                                                <a href="/admin/delete-admin/<%=admin.id%>" class="btn btn-outline-danger">
                                                 <i class="bi bi-trash"></i>
                                             </a>
+                                           <% }%>
+                                            
                                         </div>
                                     </td>
                                 </tr>

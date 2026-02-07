@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -248,6 +250,8 @@
     
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -263,6 +267,24 @@
                     '<i class="bi bi-eye-slash"></i>';
             });
         });
+
+
+        var notyf = new Notyf({
+    duration:2000,
+    position:{x:'right',y:'top'},
+    ripple:true,
+    
+});
+
+ <% if(locals.flash.success && locals.flash.success.length > 0){ %>
+notyf.success('<%=locals.flash.success%>');
+         
+        <% } %>
+
+        <% if(locals.flash.error && locals.flash.error.length > 0){ %>
+notyf.error('<%=locals.flash.error%>');
+         
+        <% } %>
     </script>
 </body>
 </html>

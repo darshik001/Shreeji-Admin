@@ -28,10 +28,10 @@ exports.addAdmin = async(req,res)=>{
             password:haspassword,
             profileImage:profileImage
         }) 
-       
+       req.flash('success','Admin Added Success')
         res.redirect('/admin/add-admin')
     } catch (error) {
-        console.log(error)
+        req.flash('error',error.message)
         res.redirect('/')
     }
 }
@@ -39,9 +39,10 @@ exports.addAdmin = async(req,res)=>{
 
 exports.viewAdmin = async(req,res)=>{
     try {
-        console.log(req.query.search)
+       
         let admins = await adminModel.find()
-        res.render('Admin/ViewAdmin',{admins})
+        let totaladmin = await adminModel.countDocuments()
+        res.render('Admin/ViewAdmin',{admins,totaladmin})
     } catch (error) {
         console.log(error)
         res.redirect('/')
@@ -95,9 +96,13 @@ exports.updateAdmin = async(req,res)=>{
             ...req.body,
             profileImage:profileImage
         },{new:true})
+       req.flash('success','Admin Update Success')
+
       return  res.redirect('/admin/view-admin')
     } catch (error) {
         console.log(error)
+       req.flash('error',error.message)
+
         res.redirect(`/admin/edit-admin/${id}`)
     }
 }

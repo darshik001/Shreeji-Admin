@@ -49,6 +49,33 @@
     
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+<script>
+  
+
+
+
+var notyf = new Notyf({
+    duration:2000,
+    position:{x:'right',y:'top'},
+    ripple:true,
+    
+});
+
+ <% if(locals.flash.success && locals.flash.success.length > 0){ %>
+notyf.success('<%=locals.flash.success%>');
+         
+        <% } %>
+
+        <% if(locals.flash.error && locals.flash.error.length > 0){ %>
+notyf.error('<%=locals.flash.error%>');
+         
+        <% } %>
+// Display an error notification
+
+// Display a success notification
+</script>
 
     <style>
            /* Footer Styles */
