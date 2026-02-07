@@ -5,7 +5,7 @@ const path = require('path')
 const fs = require('fs')
 exports.addAdminPage = async(req,res)=>{
      try {
-        res.render('admin/AddAdmin')
+        res.render('Admin/AddAdmin')
      } catch (error) {
         console.log(error)
      }
