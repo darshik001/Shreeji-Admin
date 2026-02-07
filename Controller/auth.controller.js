@@ -1,7 +1,7 @@
 
 exports.loginPage = async(req,res)=>{
     try {
-        res.render('auth/login')
+        res.render('Auth/login')
     } catch (error) {
         console.log(error)
     }
