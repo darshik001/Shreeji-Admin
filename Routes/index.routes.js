@@ -7,4 +7,8 @@ routes.get('/',passport.checkAuthenticated,homepage)
 
 routes.use('/admin',passport.checkAuthenticated,require('./admin.routes'))
 routes.use("/user",require('./auth.routes'))
+
+// category subcategoryes and extracategoryes
+routes.use('/category',passport.checkAuthenticated,require('./category.routes'))
+routes.use('/subcategory',passport.checkAuthenticated,require('./subcategory.routes'))
 module.exports = routes

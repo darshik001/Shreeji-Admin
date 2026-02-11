@@ -1,0 +1,167 @@
+   <%-include('../Header')%>
+
+    
+
+    <div class="form-container my-3 mx-auto">
+        <div class="form-card">
+            <!-- Form Header -->
+            <div class="form-header">
+                <h3 class="mb-1">
+                    <i class="bi bi-plus-circle me-2"></i>Add New sub Category
+                </h3>
+                <p class="mb-0 opacity-75">Enter sub category details below</p>
+            </div>
+            
+            <!-- Form Body -->
+            <div class="form-body">
+                <form id="addCategoryForm" action="/subcategory/add-subcategory" method="post">
+
+                    <!-- Category Name Field -->
+
+                     <div class="mb-4">
+                        <label for="categoryName" class="form-label">Category Name</label>
+                       <select  class="form-select form-control" name="categoryid" id="">
+                        <option value="">Select Category</option>
+                        <%category.forEach((category)=>{%>
+                            <option value="<%=category._id%>"><%=category.category%></option>
+                            <%})%>
+                       </select>
+                    </div>
+
+                    <!-- Sub Category Name Field -->
+
+                    <div class="mb-4">
+                        <label for="categoryName" class="form-label">SubCategory Name</label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="categoryName" 
+                               name="subcategory"
+                               placeholder="Enter subcategory name">
+                    </div>
+                    
+                  
+                   
+                    
+                    <!-- Form Actions -->
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <button type="button" class="btn btn-cancel">
+                                <i class="bi bi-x-circle me-1"></i> Cancel
+                            </button>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <button type="submit" class="btn btn-submit">
+                                <i class="bi bi-plus-circle me-1"></i> Add SubCategory
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Cancel button
+            document.querySelector('.btn-cancel').addEventListener('click', function() {
+                if (confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
+                    document.getElementById('addCategoryForm').reset();
+                    imagePreview.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+<style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+        }
+        
+       
+        
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            
+        }
+        
+        .form-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        
+        .form-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .form-body {
+            padding: 30px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        
+       
+        
+        .btn-submit {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 100%;
+        }
+        
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-cancel {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+            border: 1px solid #dee2e6;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 100%;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #e9ecef;
+        }
+        
+        @media (max-width: 576px) {
+            .form-body {
+                padding: 20px;
+            }
+            
+            .form-header {
+                padding: 20px;
+            }
+        }
+    </style>
+
+   <%-include('../Footer')%>
