@@ -11,4 +11,5 @@ routes.use("/user",require('./auth.routes'))
 // category subcategoryes and extracategoryes
 routes.use('/category',passport.checkAuthenticated,require('./category.routes'))
 routes.use('/subcategory',passport.checkAuthenticated,require('./subcategory.routes'))
+routes.use('/extracategory',passport.checkAuthenticated,require('./extracategory.routes'))
 module.exports = routes

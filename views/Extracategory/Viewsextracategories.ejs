@@ -130,8 +130,8 @@
                     </h1>
                 </div>
                 <div class="mt-3 mt-md-0">
-                    <a href="/subcategory/add-subcategory" class="btn btn-primary">
-                        <i class="bi bi-plus-circle me-1"></i> Add SubCategory
+                    <a href="/extracategory/add-extracategory" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-1"></i> Add extracategory
                     </a>
                 </div>
             </div>
@@ -169,18 +169,19 @@
                             <th>Image</th>
                             <th>Category Name</th>
                             <th>SubCategory Name</th>
+                            <th>Extracategory Name</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% if(subcategory && subcategory.length > 0) { %>
-                            <% subcategory.forEach((subcategory, index)=>{%>
+                        <% if(extracategory && extracategory.length > 0) { %>
+                            <% extracategory.forEach((extracategory, index)=>{%>
                                 <tr>
                                     <td><%= index + 1 %></td>
                                     <td class="category-image-td">
-                                        <% if(subcategory.categoryid.categoryImage && subcategory.categoryid.categoryImage.trim() !== '') { %>
-                                            <img src="<%=subcategory.categoryid.categoryImage%>" 
-                                                 alt="<%=subcategory.subcategory%>" 
+                                        <% if(extracategory.categoryid.categoryImage && extracategory.categoryid.categoryImage.trim() !== '') { %>
+                                            <img src="<%=extracategory.categoryid.categoryImage%>" 
+                                                 alt="<%=extracategory.extracategory%>" 
                                                  class="category-image">
                                         <% } else { %>
                                             <div class="no-image">
@@ -189,18 +190,21 @@
                                         <% } %>
                                     </td>
                                     <td>
-                                        <strong><%=subcategory.categoryid.category%></strong><br>
+                                        <strong><%=extracategory.categoryid.category%></strong><br>
+                                    </td>
+                                     <td>
+                                        <strong><%=extracategory.subcategoryid.subcategory%></strong><br>
                                     </td>
                                     <td>
-                                        <strong><%=subcategory.subcategory%></strong><br>
+                                        <strong><%=extracategory.extracategory%></strong><br>
                                     </td>
                                     <td>
                                         <div class="action-buttons">
-                                            <a href="/subcategory/edit-subcategory/<%=subcategory._id%>" 
+                                            <a href="/extracategory/edit-extracategory/<%=extracategory._id%>" 
                                                class="btn btn-sm btn-outline-secondary me-1">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <a href="/subcategory/delete-subcategory/<%=subcategory._id%>" 
+                                            <a href="/extracategory/delete-extracategory/<%=extracategory._id%>" 
                                                class="btn btn-sm btn-outline-danger">
                                                 <i class="bi bi-trash"></i>
                                             </a>
