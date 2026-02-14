@@ -42,7 +42,10 @@ exports.getsubcategory = async(req,res)=>{
 
 exports.viewextraCategory = async(req,res)=>{
     try {
-        let search = ''
+        let search = req.query.search ||""
+        let page  = req.query.page || 1
+        let limit = 5
+        let skip = Math.ceil(page - 1) * limit
         let extracategory = await extracategoryModel.aggregate([
             {
                 $lookup:{
@@ -65,12 +68,78 @@ exports.viewextraCategory = async(req,res)=>{
             },
             {
                 $unwind:{path:'$subcategoryid'}
+            },
+            {
+                $match:{
+                    $or:[
+                        {'categoryid.category':{$regex:search,$options:'i'}},
+                        {'subcategoryid.subcategory':{$regex:search,$options:'i'}},
+                        {extracategory:{$regex:search,$options:'i'}},
+                    ]
+                }
+            },
+            {
+                $facet:{
+                    data:[
+                        {
+                            $skip:skip
+                        },
+                        {
+                            $limit:limit
+                        }
+                    ],
+                    totalcount:[
+                        {$count:'count'}
+                    ]
+                }
             }
         ])
-        console.log(extracategory)
-        res.render('Extracategory/Viewsextracategories',{extracategory,search,totalpage:10,currntpage :1})
+        let totalrecord = extracategory[0].totalcount[0]?.count
+        totalpage = Math.ceil(totalrecord/limit)
+        extracategory = extracategory[0].data
+        res.render('Extracategory/Viewsextracategories',{extracategory,search,totalpage:totalpage,currntpage :page})
     } catch (error) {
-        req,flash('error',error.message)
+        req.flash('error',error.message)
         res.redirect('/')
+    }
+}
+
+
+
+exports.EditextraCategory = async(req,res)=>{
+    try {
+       let id = req.params.id
+       let extracategory = await extracategoryModel.findById(id)
+       res.render("Extracategory/Editextracategory",{extracategory})
+
+    } catch (error) {
+        req.flash('error',error.message)
+        res.redirect('/extracategory/view-extracategory')
+    }
+}
+
+
+exports.UpdateextraCategory = async(req,res)=>{
+    try {
+        let id = req.params.id
+        await extracategoryModel.findByIdAndUpdate(id,req.body,{new:true})
+        req.flash('success',"ExtraCategory Updated!!!")
+        res.redirect('/extracategory/view-extracategory')
+    } catch (error) {
+        req.flash('error',error.message)
+        res.redirect('/extracategory/view-extracategory')
+    }
+}
+
+
+exports.DeleteextraCategory=async(req,res)=>{
+    try {
+        let id = req.params.id
+        await extracategoryModel.findByIdAndDelete(id)
+        req.flash('success','extracategory Deleted')
+        res.redirect('/extracategory/view-extracategory')
+    } catch (error) {
+        req.flash('error',error.message)
+        res.redirect('/extracategory/view-extracategory')
     }
 }

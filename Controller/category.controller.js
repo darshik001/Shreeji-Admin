@@ -1,5 +1,7 @@
 const categoryModel = require('../Models/Category.model')
 const subcategoryModel = require('../Models/Subcategory.model')
+const extracategoryModel = require('../Models/Extracategory.model')
+
 const path = require('path')
 const fs = require('fs')
 exports.addcategoryPage = async(req,res)=>{
@@ -64,6 +66,7 @@ exports.deleteCategory = async(req,res)=>{
 
         await categoryModel.findByIdAndDelete(id)
         await subcategoryModel.deleteMany({categoryid:id})
+        await extracategoryModel.deleteMany({categoryid:id})
         req.flash('success','Category Deleted!!!')
         res.redirect('/category/view-category')
     } catch (error) {

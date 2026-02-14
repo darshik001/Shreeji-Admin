@@ -167,8 +167,8 @@
                         <tr>
                             <th width="50">#</th>
                             <th>Image</th>
-                            <th>Category Name</th>
                             <th>SubCategory Name</th>
+                            <th>Category Name</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -188,12 +188,13 @@
                                             </div>
                                         <% } %>
                                     </td>
+                                     <td>
+                                        <strong><%=subcategory.subcategory%></strong><br>
+                                    </td>
                                     <td>
                                         <strong><%=subcategory.categoryid.category%></strong><br>
                                     </td>
-                                    <td>
-                                        <strong><%=subcategory.subcategory%></strong><br>
-                                    </td>
+                                   
                                     <td>
                                         <div class="action-buttons">
                                             <a href="/subcategory/edit-subcategory/<%=subcategory._id%>" 

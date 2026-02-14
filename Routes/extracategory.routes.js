@@ -1,11 +1,15 @@
 const express = require('express')
-const { getsubcategory,AddextracategoryPage,AddextraCategory,viewextraCategory } = require('../Controller/extracategory.controller')
+const { getsubcategory,AddextracategoryPage,AddextraCategory,viewextraCategory,EditextraCategory,UpdateextraCategory,DeleteextraCategory } = require('../Controller/extracategory.controller')
 const routes = express.Router()
 
 
 routes.get('/add-extracategory',AddextracategoryPage)
 routes.post('/add-extracategory',AddextraCategory)
 routes.get('/view-extracategory',viewextraCategory)
+routes.get('/edit-extracategory/:id',EditextraCategory)
+routes.post('/update-extracategory/:id',UpdateextraCategory)
+routes.get('/delete-extracategory/:id',DeleteextraCategory)
+
 
 
 

@@ -126,7 +126,7 @@
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div>
                     <h1 class="h2 mb-2">
-                        <i class="bi bi-grid-3x3-gap me-2"></i>SubCategories
+                        <i class="bi bi-grid-3x3-gap me-2"></i>ExtraCategories
                     </h1>
                 </div>
                 <div class="mt-3 mt-md-0">
@@ -167,9 +167,9 @@
                         <tr>
                             <th width="50">#</th>
                             <th>Image</th>
-                            <th>Category Name</th>
-                            <th>SubCategory Name</th>
                             <th>Extracategory Name</th>
+                            <th>SubCategory Name</th>
+                            <th>Category Name</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -178,7 +178,7 @@
                             <% extracategory.forEach((extracategory, index)=>{%>
                                 <tr>
                                     <td><%= index + 1 %></td>
-                                    <td class="category-image-td">
+                                     <td class="category-image-td">
                                         <% if(extracategory.categoryid.categoryImage && extracategory.categoryid.categoryImage.trim() !== '') { %>
                                             <img src="<%=extracategory.categoryid.categoryImage%>" 
                                                  alt="<%=extracategory.extracategory%>" 
@@ -190,14 +190,18 @@
                                         <% } %>
                                     </td>
                                     <td>
-                                        <strong><%=extracategory.categoryid.category%></strong><br>
+                                        <strong><%=extracategory.extracategory%></strong><br>
                                     </td>
                                      <td>
                                         <strong><%=extracategory.subcategoryid.subcategory%></strong><br>
                                     </td>
-                                    <td>
-                                        <strong><%=extracategory.extracategory%></strong><br>
+                                     <td>
+                                        <strong><%=extracategory.categoryid.category%></strong><br>
                                     </td>
+                                   
+                                   
+                                    
+                                    
                                     <td>
                                         <div class="action-buttons">
                                             <a href="/extracategory/edit-extracategory/<%=extracategory._id%>" 
