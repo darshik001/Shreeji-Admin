@@ -1,0 +1,247 @@
+<%-include('../Header')%>
+
+    <div class="container py-4">
+        <div class="card border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+            <!-- Header -->
+            <div class="p-4 text-white" style="background: linear-gradient(135deg, #2563eb, #7c3aed, #db2777);">
+                <span class="badge bg-white text-primary mb-2">✨ New Product</span>
+                <h2 class="fw-bold mb-1"><i class="bi bi-plus-circle-fill me-2"></i>Add New Product</h2>
+                <p class="mb-0 opacity-75">Fill in the product details below</p>
+            </div>
+
+            <!-- Progress -->
+            <!-- <div class="bg-light p-3 d-flex justify-content-center border-bottom">
+            <div class="d-flex align-items-center">
+                <div class="text-center mx-2">
+                    <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;"><i class="bi bi-check-lg"></i></div>
+                    <small class="text-success fw-bold">Category</small>
+                </div>
+                <div class="bg-success" style="width: 40px; height: 2px;"></div>
+                <div class="text-center mx-2">
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">2</div>
+                    <small class="text-primary fw-bold">Details</small>
+                </div>
+                <div class="bg-secondary" style="width: 40px; height: 2px;"></div>
+                <div class="text-center mx-2">
+                    <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">3</div>
+                    <small class="text-secondary">Media</small>
+                </div>
+            </div>
+        </div> -->
+
+            <!-- Form -->
+            <div class="p-4">
+                <form id="addProductForm" action="/product/add-product" method="post" enctype="multipart/form-data">
+
+                    <!-- Categories -->
+                    <div class="card border-0 bg-light p-3 mb-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="bg-primary rounded-3 p-2"><i class="bi bi-diagram-3 text-white"></i></div>
+                            <div>
+                                <h5 class="fw-bold mb-0">Categories</h5><small class="text-secondary">Select product
+                                    categories</small>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="fw-semibold mb-1"><i
+                                        class="bi bi-folder-fill text-primary me-1"></i>Category</label>
+                                <select class="form-select" name="categoryid" id="categoryid" required>
+                                    <option value="">Select category</option>
+                                    <% category.forEach((c)=>{%><option value="<%=c._id%>">
+                                            <%=c.category%>
+                                        </option>
+                                        <%})%>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="fw-semibold mb-1"><i
+                                        class="bi bi-folder2-open text-primary me-1"></i>SubCategory</label>
+                                <select class="form-select" name="subcategoryid" id="subcategoryid" required>
+                                    <option value="">Select subcategory</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="fw-semibold mb-1"><i
+                                        class="bi bi-folder-symlink text-primary me-1"></i>Extra Category</label>
+                                <select class="form-select" name="extracategoryid" id="extracategoryid" required>
+                                    <option value="">Select extra category</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details -->
+                    <div class="card border-0 bg-light p-3 mb-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="bg-primary rounded-3 p-2"><i class="bi bi-box-seam text-white"></i></div>
+                            <div>
+                                <h5 class="fw-bold mb-0">Product Details</h5><small class="text-secondary">Basic
+                                    information</small>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="fw-semibold mb-1"><i class="bi bi-tag-fill text-primary me-1"></i>Product
+                                    Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="name" placeholder="Wireless Headphones"
+                                    required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="fw-semibold mb-1"><i
+                                        class="bi bi-currency-dollar text-primary me-1"></i>Price <span
+                                        class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="price" placeholder="0.00" min="0"
+                                    step="0.01" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="fw-semibold mb-1"><i class="bi bi-box-fill text-primary me-1"></i>Stock
+                                    <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="stock" placeholder="100" min="0"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label class="fw-semibold mb-1"><i
+                                        class="bi bi-pencil-fill text-primary me-1"></i>Description</label>
+                                <textarea class="form-control" name="description" rows="3"
+                                    placeholder="Describe your product..."
+                                    oninput="this.nextElementSibling.innerHTML = this.value.length + '/500'"></textarea>
+                                <small class="text-secondary d-block text-end mt-1">0/500</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Media & Status -->
+                    <div class="card border-0 bg-light p-3 mb-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="bg-primary rounded-3 p-2"><i class="bi bi-images text-white"></i></div>
+                            <div>
+                                <h5 class="fw-bold mb-0">Media & Status</h5><small class="text-secondary">Image and
+                                    visibility</small>
+                            </div>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-4 text-center">
+                                <input type="file" id="productImage" name="productImage" multiple hidden>
+
+                                <!-- clickable icon -->
+                                <label for="productImage" style="cursor:pointer;border:dashed;" class="text-center px-5 ">
+                                    <i class="bi bi-cloud-arrow-up-fill text-primary d-block"
+                                        style="font-size:100px;"></i>
+                                    <p class="fs-4">CHOOSE IMAGE</p>
+                                </label>
+                            </div>
+
+                            <div class="col-6" >
+                                <div class="d-flex justify-content-between" id="preview"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex gap-2 justify-content-end">
+                        <button type="button" class="btn btn-outline-secondary px-4"
+                            onclick="if(confirm('Cancel?')) this.closest('form').reset()">
+                            <i class="bi bi-x-lg me-1"></i>Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary px-4"
+                            style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none;">
+                            <i class="bi bi-check-lg me-1"></i>Create Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        body {
+            background: #f0f5ff;
+        }
+
+        .border-dashed {
+            border-style: dashed !important;
+        }
+
+        .upload-content {
+            cursor: pointer;
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 10px 12px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline-secondary:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+            background: #fef2f2;
+        }
+    </style>
+
+    <script>
+        let category = document.getElementById('categoryid');
+        let subcategory = document.getElementById('subcategoryid');
+        let extracategory = document.getElementById('extracategoryid');
+
+        category.addEventListener('change', function () {
+            if (this.value) {
+                fetch(`/findcategories/getsubcategory/${this.value}`)
+                    .then(r => r.json()).then(d => {
+                        subcategory.innerHTML = '<option value="">Select subcategory</option>' +
+                            d.subcategory.map(s => `<option value="${s._id}">${s.subcategory}</option>`).join('');
+                        extracategory.innerHTML = '<option value="">Select extra category</option>';
+                    });
+            }
+        });
+
+        subcategory.addEventListener('change', function () {
+            if (this.value) {
+                fetch(`/findcategories/getextracategory/${this.value}`)
+                    .then(r => r.json()).then(d => {
+                        extracategory.innerHTML = '<option value="">Select extra category</option>' +
+                            d.extracategory.map(e => `<option value="${e._id}">${e.extracategory}</option>`).join('');
+                    });
+            }
+        });
+
+      
+       let productimage = document.getElementById('productImage')
+        let preview = document.getElementById('preview')
+       productimage.addEventListener('change',()=>{
+         for (let file of productimage.files) {
+
+   let div = document.createElement('div')
+   let img = document.createElement('img')
+   img.src = URL.createObjectURL(file)
+    img.width = 120;
+   div.append(img)
+   preview.append(div)
+
+
+  }
+       })
+
+
+       
+        // document.querySelectorAll('textarea').forEach(t => {
+        //     t.addEventListener('input', function () {
+        //         this.nextElementSibling.innerHTML = this.value.length + '/500';
+        //     });
+        // });
+    </script>
+
+    <%-include('../Footer')%>

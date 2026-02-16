@@ -40,14 +40,34 @@ exports.addCategory = async(req,res)=>{
 exports.viewCategoryPage = async(req,res)=>{
     try {
         let search = req.query.search ||""
-        let filter = {
-  $or: [
-    { category: { $regex: search, $options: "i" } },
-    { description: { $regex: search, $options: "i" } }
-  ]
-}
-        let categories = await categoryModel.find(filter)
-        res.render('Category/Viewcategories',{categories,search})
+        let page  =req.query.page || 1
+        let limit = 10
+        let skip = Math.ceil(page-1) * limit
+       
+        let categories = await categoryModel.aggregate([
+            {
+                $match:{
+                    $or:[
+                        {category:{$regex:search,$options:'i'}}
+                    ]
+                }
+            },
+            {
+                $facet:{
+                    data:[
+                        {$skip:skip},
+                        {$limit:limit}
+                    ],
+                    totalcount:[
+                        {$count:'count'}
+                    ]
+                }
+            }
+        ])
+        let totalrecord = categories[0].totalcount[0]?.count || 0
+        let  totalpage = Math.ceil(totalrecord/limit) 
+        categories = categories[0].data
+        res.render('Category/Viewcategories',{categories,search,totalpage,currntpage:page})
     } catch (error) {
         req.flash('error',error.message)
         res.redirect('/')

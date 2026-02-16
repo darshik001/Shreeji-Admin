@@ -26,25 +26,14 @@ exports.AddextraCategory = async(req,res)=>{
 }
 
 
-// get sub category 
 
-
-exports.getsubcategory = async(req,res)=>{
-    try {
-        let id = req.params.id
-       let getsubcategory = await subcategoryModel.find({categoryid:id})
-          res.json({message:'get subcategory',subcategory:getsubcategory})
-    } catch (error) {
-        req.flash('error',error.message)
-        res.redirect('/extracategory/add-extracategory')
-    }
-}
 
 exports.viewextraCategory = async(req,res)=>{
     try {
         let search = req.query.search ||""
+       
         let page  = req.query.page || 1
-        let limit = 5
+        let limit = 10
         let skip = Math.ceil(page - 1) * limit
         let extracategory = await extracategoryModel.aggregate([
             {
@@ -94,7 +83,7 @@ exports.viewextraCategory = async(req,res)=>{
                 }
             }
         ])
-        let totalrecord = extracategory[0].totalcount[0]?.count
+        let totalrecord = extracategory[0].totalcount[0]?.count || 0
         totalpage = Math.ceil(totalrecord/limit)
         extracategory = extracategory[0].data
         res.render('Extracategory/Viewsextracategories',{extracategory,search,totalpage:totalpage,currntpage :page})

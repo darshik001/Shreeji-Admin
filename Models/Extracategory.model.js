@@ -13,8 +13,12 @@ const ExtracategorySchema = mongoose.Schema({
     },
     extracategory:{
         type:String,
-        trim:true,
-        required:true        
+         required: true,
+         trim: true,
+        lowercase: true,
+        unique: true,
+        index: true,
+        minlength: 2,     
     }
 })
 

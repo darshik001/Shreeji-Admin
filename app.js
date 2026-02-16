@@ -33,7 +33,7 @@ app.use(flash())
 app.use(flashMessage)
 
 app.use('/',require('./Routes/index.routes'))
-
+app.use('/web',require('./Routes/web.routes'))
 
 app.listen(port,()=>{
     console.log(`server start at http://localhost:${port}`)

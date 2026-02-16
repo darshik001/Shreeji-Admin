@@ -1,5 +1,5 @@
 const express = require('express')
-const { getsubcategory,AddextracategoryPage,AddextraCategory,viewextraCategory,EditextraCategory,UpdateextraCategory,DeleteextraCategory } = require('../Controller/extracategory.controller')
+const { AddextracategoryPage,AddextraCategory,viewextraCategory,EditextraCategory,UpdateextraCategory,DeleteextraCategory } = require('../Controller/extracategory.controller')
 const routes = express.Router()
 
 
@@ -14,5 +14,4 @@ routes.get('/delete-extracategory/:id',DeleteextraCategory)
 
 
 // find subcategory base on category 
-routes.get('/getsubcategory/:id',getsubcategory) 
 module.exports = routes

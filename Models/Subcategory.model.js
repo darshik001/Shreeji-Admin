@@ -6,7 +6,13 @@ const subcategorySchema = mongoose.Schema({
         ref:'categories'
     },
     subcategory:{
-        type:String
+        type:String,
+         required: true,
+        trim: true,
+        lowercase: true,
+        unique: true,
+        index: true,
+        minlength: 2,
     }
 })
 

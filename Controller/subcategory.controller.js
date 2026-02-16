@@ -30,7 +30,7 @@ exports.addsubCategory = async (req, res) => {
 exports.viewsubCategories = async (req, res) => {
     try {
         let page = Number(req.query.page) || 1
-        let limit = 5;
+        let limit = 10;
         let skip = Math.ceil(page - 1) * limit
         let search = req.query.search || "";
         console.log(search)
@@ -78,7 +78,7 @@ exports.viewsubCategories = async (req, res) => {
                     ]
                 }
             }
-        ]).collation({ locale: "en", strength: 2 })
+        ])
 
         let totalrecord = subcategory[0].totalcount[0]?.count || 0
         let totalpage = Math.ceil(totalrecord / limit)

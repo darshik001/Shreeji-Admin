@@ -87,8 +87,8 @@
             let subcategory = document.getElementById('subcategoryid')
 
             category.addEventListener('change',()=>{
-
-               fetch(`/extracategory/getsubcategory/${category.value}`)
+    
+               fetch(`/findcategories/getsubcategory/${category.value}`)
                .then(res=>res.json())
                .then((data) =>{
                        subcategory.innerHTML = '<option value="">Select Category</option>'
