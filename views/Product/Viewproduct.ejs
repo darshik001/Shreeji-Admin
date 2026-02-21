@@ -80,7 +80,6 @@
   </div>
 </div>
 
-
     <!-- Products Grid -->
     <div class="row g-4">
 
@@ -104,9 +103,9 @@
                 </div>
                 <div class="card-footer bg-white border-0 p-3 pt-0">
                     <div class="d-flex gap-2">
-                        <button class="btn btn-sm btn-outline-primary flex-fill"><i class="bi bi-eye"></i> View</button>
-                        <button class="btn btn-sm btn-outline-warning flex-fill"><i class="bi bi-pencil"></i> Edit</button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        <a href="/product/view-product/<%=product._id%>" class="btn btn-sm btn-outline-primary flex-fill"><i class="bi bi-eye"></i> View</a>
+                        <a href="/product/edit-product/<%=product._id%>" class="btn btn-sm btn-outline-warning flex-fill"><i class="bi bi-pencil"></i> Edit</a>
+                        <a href="/product/delete-product/<%=product._id%>" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
                     </div>
                 </div>
             </div>
@@ -117,7 +116,9 @@
 
 
     <!-- Pagination -->
-    <div class="d-flex justify-content-center mt-5">
+      <%if(products.length){%>
+        
+         <div class="d-flex justify-content-center mt-5">
         <nav>
             <ul class="pagination">
                 <li class="page-item <%=currentpage <=1?'d-none disabled':''%>">
@@ -133,8 +134,17 @@
             </ul>
         </nav>
     </div>
+        <%}else{%>
+            
+            <div class="text-center py-5 my-5">
+                <i class="bi bi-search fs-1"></i>
+                <h2 class="">
+              No Product Found
+                </h2>
+            </div>
+            <%}%>
 </div>
-
+</div>
 <style>
     body {
         background: #f0f5ff;

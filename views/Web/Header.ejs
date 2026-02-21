@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Store</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #ffd700;
+        }
+
+        .nav-menu ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu ul li a:hover {
+            color: #ffd700;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-icons i {
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .header-icons i:hover {
+            transform: scale(1.1);
+            color: #ffd700;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h2 {
+            font-size: 36px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .page-title p {
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .category-tag {
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .category-tag.admin {
+            background: #667eea;
+            color: white;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .product-stock {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .product-stock.low {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .product-meta i {
+            margin-right: 5px;
+            color: #667eea;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a67d8;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #667eea;
+            color: #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #2d3748;
+            color: white;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 50px;
+            height: 2px;
+            background: #667eea;
+        }
+
+        .footer-section p {
+            color: #cbd5e0;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            background: #4a5568;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            transform: translateY(-3px);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #667eea;
+            padding-left: 5px;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #cbd5e0;
+        }
+
+        .contact-info i {
+            color: #667eea;
+            width: 20px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #4a5568;
+            color: white;
+        }
+
+        .newsletter-form input::placeholder {
+            color: #a0aec0;
+        }
+
+        .newsletter-form button {
+            padding: 12px 20px;
+            background: #667eea;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #5a67d8;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid #4a5568;
+            color: #a0aec0;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-menu ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>Product<span>Store</span></h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="/">Back to Admin Panal</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-user"></i>
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content - Homepage Product Details -->
+    <main class="main-content">
+        <div class="page-title">
+            <h2>Our Products</h2>
+            <p>Discover our amazing collection of products</p>
+        </div>
+
+
+
+        
+        <div class="row">
+            <!-- Product Card 1 -->
+         <div class="col-4 my-3">
+               <div class="product-card">
+                <div class="product-badge">New</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="Product">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">
+                        <span class="category-tag">Electronics</span>
+                        <span class="category-tag">Headphones</span>
+                        <span class="category-tag">Wireless</span>
+                        <span class="category-tag admin">Admin: John</span>
+                    </div>
+                    <h3 class="product-name">Premium Wireless Headphones</h3>
+                    <p class="product-description">
+                        High-quality wireless headphones with noise cancellation and premium sound quality.
+                    </p>
+                    <div class="product-price-row">
+                        <span class="product-price">$299.99</span>
+                        <span class="product-stock">In Stock: 45</span>
+                    </div>
+                    <div class="product-meta">
+                        <span><i class="fas fa-user"></i> Admin: John Doe</span>
+                        <span><i class="fas fa-tag"></i> Category: Electronics</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                        <button class="btn btn-outline"><i class="fas fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+            <!-- Product Card 2 -->
+           <div class="col-4 my-3">
+             <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" alt="Product">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">
+                        <span class="category-tag">Fashion</span>
+                        <span class="category-tag">Watches</span>
+                        <span class="category-tag">Premium</span>
+                        <span class="category-tag admin">Admin: Sarah</span>
+                    </div>
+                    <h3 class="product-name">Classic Leather Watch</h3>
+                    <p class="product-description">
+                        Elegant classic leather watch with premium build quality and water resistance.
+                    </p>
+                    <div class="product-price-row">
+                        <span class="product-price">$149.99</span>
+                        <span class="product-stock low">Low Stock: 5</span>
+                    </div>
+                    <div class="product-meta">
+                        <span><i class="fas fa-user"></i> Admin: Sarah Smith</span>
+                        <span><i class="fas fa-tag"></i> Category: Fashion</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                        <button class="btn btn-outline"><i class="fas fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+           </div>
+
+            <!-- Product Card 3 -->
+           <div class="col-4 my-3">
+             <div class="product-card">
+                <div class="product-badge">Sale</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" alt="Product">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">
+                        <span class="category-tag">Sports</span>
+                        <span class="category-tag">Shoes</span>
+                        <span class="category-tag">Running</span>
+                        <span class="category-tag admin">Admin: Mike</span>
+                    </div>
+                    <h3 class="product-name">Running Shoes Pro</h3>
+                    <p class="product-description">
+                        Professional running shoes with advanced cushioning and breathable material.
+                    </p>
+                    <div class="product-price-row">
+                        <span class="product-price">$89.99</span>
+                        <span class="product-stock">In Stock: 23</span>
+                    </div>
+                    <div class="product-meta">
+                        <span><i class="fas fa-user"></i> Admin: Mike Johnson</span>
+                        <span><i class="fas fa-tag"></i> Category: Sports</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                        <button class="btn btn-outline"><i class="fas fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+           </div>
+
+            <!-- Product Card 4 -->
+           <div class="col-4 my-3">
+             <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=500" alt="Product">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">
+                        <span class="category-tag">Home</span>
+                        <span class="category-tag">Furniture</span>
+                        <span class="category-tag">Modern</span>
+                        <span class="category-tag admin">Admin: Emma</span>
+                    </div>
+                    <h3 class="product-name">Modern Desk Lamp</h3>
+                    <p class="product-description">
+                        Adjustable LED desk lamp with multiple brightness levels and modern design.
+                    </p>
+                    <div class="product-price-row">
+                        <span class="product-price">$49.99</span>
+                        <span class="product-stock">In Stock: 67</span>
+                    </div>
+                    <div class="product-meta">
+                        <span><i class="fas fa-user"></i> Admin: Emma Wilson</span>
+                        <span><i class="fas fa-tag"></i> Category: Home</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                        <button class="btn btn-outline"><i class="fas fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+           </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Your one-stop shop for quality products. We provide the best shopping experience with premium products and excellent customer service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Electronics</a></li>
+                        <li><a href="#">Fashion</a></li>
+                        <li><a href="#">Sports</a></li>
+                        <li><a href="#">Home & Living</a></li>
+                        <li><a href="#">Books</a></li>
+                        <li><a href="#">Toys</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Business Ave, New York, NY 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> support@productstore.com</li>
+                        <li><i class="fas fa-clock"></i> Mon - Fri: 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get updates on new products and special offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 ProductStore. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff4757;"></i> for amazing products</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

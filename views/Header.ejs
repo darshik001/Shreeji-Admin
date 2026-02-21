@@ -167,6 +167,13 @@
 
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="/web">
+                                <i class="bi bi-house-door me-1"></i> Web
+                            </a>
+
+                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -258,7 +265,7 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/product/view-product">
-                                        <i class="bi bi-folder me-2"></i> View Extra-category
+                                        <i class="bi bi-folder me-2"></i> View Product
                                     </a>
                                 </li>
                             </ul>
@@ -287,7 +294,7 @@
 
                         <ul class="dropdown-menu dropdown-menu-end pe-5 ps-2 py-3">
                             <li class="dropdown-item">
-                                <i class="bi bi-person-circle me-2"></i> John Doe
+                                <i class="bi bi-person-circle me-2"></i><%=locals.user.firstname%>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="/user/profile">

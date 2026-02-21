@@ -29,7 +29,7 @@ const ProductSchema = mongoose.Schema({
     },
 
      price:{
-        type:String,
+        type:Number,
         required: true,
         trim: true,
         lowercase: true,
@@ -39,7 +39,7 @@ const ProductSchema = mongoose.Schema({
     },
 
      stock:{
-        type:String,
+        type:Number,
         required: true,
        
     },
