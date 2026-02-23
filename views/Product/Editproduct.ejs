@@ -99,21 +99,19 @@
                         <div class="d-flex align-items-center gap-2 mb-3">
                             <div class="bg-primary rounded-3 p-2"><i class="bi bi-images text-white"></i></div>
                             <div>
-                                <h5 class="fw-bold mb-0">Media & Status</h5><small class="text-secondary">Image and
-                                    visibility</small>
+                                <h5 class="fw-bold mb-0">Media & Status</h5><small class="text-danger">Image Not Changed Currently *</small>
                             </div>
                         </div>
                         <div class="row g-4">
-                            <div class="col-4 text-center">
+                            <!-- <div class="col-4 text-center">
                                 <input type="file" id="productImage" name="productImage" multiple hidden>
 
-                                <!-- clickable icon -->
                                 <label for="productImage" style="cursor:pointer;border:dashed;" class="text-center px-5 ">
                                     <i class="bi bi-cloud-arrow-up-fill text-primary d-block"
                                         style="font-size:100px;"></i>
                                     <p class="fs-4">CHOOSE IMAGE</p>
                                 </label>
-                            </div>
+                            </div> -->
 
                             <div class="col-6" >
                                 <div class="d-flex justify-content-between" id="preview">
@@ -135,7 +133,7 @@
                         </button>
                         <button type="submit" class="btn btn-primary px-4"
                             style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none;">
-                            <i class="bi bi-check-lg me-1"></i>Create Product
+                            <i class="bi bi-check-lg me-1"></i>Update Product
                         </button>
                     </div>
                 </form>
@@ -183,56 +181,77 @@
 
     <script>
 
-        document.addEventListener("DOMContentLoaded", function () {
-        
-    let category = document.getElementById('categoryid');
-    let subcategory = document.getElementById('subcategoryid');
-    let extracategory = document.getElementById('extracategoryid');
+     document.addEventListener("DOMContentLoaded", function () {
 
-    // ✅ Load subcategory
-    function loadSubcategory() {
-        if (!category.value) return;
+let category = document.getElementById('categoryid');
+let subcategory = document.getElementById('subcategoryid');
+let extracategory = document.getElementById('extracategoryid');
+
+// store selected ids from edit product
 let selectedSubcategory = "<%= product?.subcategoryid?._id || '' %>";
-        fetch(`/findcategories/getsubcategory/${category.value}`)
-            .then(res => res.json())
-            .then(data => {
-                subcategory.innerHTML =
-                    '<option value="">Select subcategory</option>' +
-                    data.subcategory.map(s =>
-                        `<option ${selectedSubcategory == s._id ? 'selected':''} value="${s._id}">${s.subcategory}</option>`
-                    ).join('');
+let selectedExtraCategory = "<%= product?.extracategoryid?._id || '' %>";
 
-                extracategory.innerHTML =
-                    '<option value="">Select extra category</option>';
-            });
-            console.log()
-    }
 
-    // ✅ Load extracategory
-    
-    function loadExtraCategory() {
-        console.log(subcategory.value)
-        if (!subcategory.value) return;
-        fetch(`/findcategories/getextracategory/${subcategory.value}`)
-            .then(res => res.json())
-            .then(data => {
-                extracategory.innerHTML =
-                    '<option value="">Select extra category</option>' +
-                    data.extracategory.map(e =>
-                        `<option value="${e._id}">${e.extracategory}</option>`
-                    ).join('');
-            });
-    }
+// ✅ Load subcategory
+function loadSubcategory() {
+    if (!category.value) return;
 
-    // events
-    category.addEventListener("change", loadSubcategory);
-    subcategory.addEventListener("change", loadExtraCategory);
+    fetch(`/findcategories/getsubcategory/${category.value}`)
+        .then(res => res.json())
+        .then(data => {
 
-    // ⭐ auto load on page open
-    if (category.value) loadSubcategory();
+            subcategory.innerHTML =
+                '<option value="">Select subcategory</option>' +
+                data.subcategory.map(s =>
+                    `<option ${selectedSubcategory == s._id ? 'selected' : ''} value="${s._id}">
+                        ${s.subcategory}
+                    </option>`
+                ).join('');
+
+            // ⭐ auto load extra category AFTER subcategory loads
+            if (selectedSubcategory) {
+                subcategory.value = selectedSubcategory;
+                loadExtraCategory();
+            }
+        });
+}
+
+
+// ✅ Load extracategory
+function loadExtraCategory() {
+    if (!subcategory.value) return;
+
+    fetch(`/findcategories/getextracategory/${subcategory.value}`)
+        .then(res => res.json())
+        .then(data => {
+
+            extracategory.innerHTML =
+                '<option value="">Select extra category</option>' +
+                data.extracategory.map(e =>
+                    `<option ${selectedExtraCategory == e._id ? 'selected' : ''} value="${e._id}">
+                        ${e.extracategory}
+                    </option>`
+                ).join('');
+        });
+}
+
+
+// events
+category.addEventListener("change", () => {
+    selectedSubcategory = "";
+    selectedExtraCategory = "";
+    loadSubcategory();
 });
 
+subcategory.addEventListener("change", () => {
+    selectedExtraCategory = "";
+    loadExtraCategory();
+});
 
+// ⭐ auto load on page open (edit page)
+if (category.value) loadSubcategory();
+
+});
     </script>
 
     <%-include('../Footer')%>
