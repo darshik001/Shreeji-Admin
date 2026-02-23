@@ -191,3 +191,16 @@ exports.Editproduct = async(req,res)=>{
         res.redirect('/product/view-prodcut')
     }
 }
+
+
+exports.Updateproduct = async(req,res)=>{
+    try {
+        let id = req.params.id
+       await productModel.findByIdAndUpdate(id,{...req.body},{new:true})
+          req.flash('success',"Product Updaed!!!")
+          res.redirect('/product/view-product')
+    } catch (error) {
+        req.flash('error',error.message)
+        res.redirect('/product/view-product')
+    }
+}
