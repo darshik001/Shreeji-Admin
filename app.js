@@ -8,7 +8,7 @@ const localsstrategy = require('./Middleware/localstrategy')
 const flash = require('connect-flash')
 const flashMessage = require('./Middleware/flashmessage')
 const app = express()
-const port =8080
+const port = 8080  || 8000
 
 
 app.set('view engine','ejs')
