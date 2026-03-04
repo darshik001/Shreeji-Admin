@@ -1,6 +1,7 @@
 const express = require('express')
 // require('dotenv').config()
-require('./Config/dbConnection')
+const dbconnection =require('./Config/dbConnection')
+require('dotenv').config()
 
 const passport = require('passport')
 const session = require('express-session')
@@ -8,7 +9,7 @@ const localsstrategy = require('./Middleware/localstrategy')
 const flash = require('connect-flash')
 const flashMessage = require('./Middleware/flashmessage')
 const app = express()
-const port = 8080  || 8000
+const port = process.env.PORT 
 
 
 app.set('view engine','ejs')
